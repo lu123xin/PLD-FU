@@ -82,26 +82,7 @@ def test_all_case(model_name,
                                                               stride_z,
                                                               patch_size,
                                                               num_classes=num_classes)
-        if num_outputs > 1:
-            prediction_average, score_map_average = test_single_case_average_output(model,
-                                                                                    image,
-                                                                                    stride_xy,
-                                                                                    stride_z,
-                                                                                    patch_size,
-                                                                                    num_classes=num_classes)
-        if nms:
-            prediction = getLargestCC(prediction)
-            if num_outputs > 1:
-                prediction_average = getLargestCC(prediction_average)
 
-        if np.sum(prediction) == 0:
-            single_metric = (0, 0, 0, 0)
-            if num_outputs > 1:
-                single_metric_average = (0, 0, 0, 0)
-        else:
-            single_metric = calculate_metric_percase(prediction, label[:])
-            if num_outputs > 1:
-                single_metric_average = calculate_metric_percase(prediction_average, label[:])
 
         if metric_detail:
             print('%02d,\t%.5f, %.5f, %.5f, %.5f' %
